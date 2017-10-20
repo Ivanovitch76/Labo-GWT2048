@@ -1,0 +1,29 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:m="urn:import:gwt.material.design.client.ui"
+	xmlns:it="urn:import:be.steformations.it.client.ui.widget">
+
+<ui:style>
+</ui:style>
+
+<m:MaterialRow marginTop="20" marginLeft="50">
+	<m:MaterialColumn grid="s4">
+		<it:Grille ui:field="grille"/>
+	</m:MaterialColumn>
+	<m:MaterialColumn grid="s2">
+		<m:MaterialRow>
+			<it:Controls text="Up" ui:field="up"/>
+		</m:MaterialRow>
+		<m:MaterialRow>
+			<it:Controls text="Down" ui:field="down"/>
+		</m:MaterialRow>
+		<m:MaterialRow>
+			<it:Controls text="Left" ui:field="left"/>
+		</m:MaterialRow>
+		<m:MaterialRow>
+			<it:Controls text="Right" ui:field="right"/>
+		</m:MaterialRow>
+	</m:MaterialColumn>
+</m:MaterialRow>
+
+</ui:UiBinder> 
