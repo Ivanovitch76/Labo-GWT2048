@@ -1,5 +1,7 @@
 package be.steformations.it.client.ui.widget;
 
-public class IdInput {
+import gwt.material.design.client.ui.MaterialTextBox;
+
+public class IdInput extends MaterialTextBox{
 
 }

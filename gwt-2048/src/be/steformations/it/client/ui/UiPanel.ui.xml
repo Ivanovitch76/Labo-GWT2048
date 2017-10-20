@@ -7,10 +7,24 @@
 </ui:style>
 
 <m:MaterialRow marginTop="20" marginLeft="50">
-	<m:MaterialColumn grid="s4">
+	<m:MaterialColumn grid="s2">
+		<m:MaterialRow>
+			<it:IdInput label="id:" ui:field="id"/>
+		</m:MaterialRow>
+		<m:MaterialRow>
+			<it:SaveButton text="Sauver" ui:field="save"/>
+		</m:MaterialRow>
+		<m:MaterialRow>
+			<it:LoadButton text="Charger" ui:field="load"/>
+		</m:MaterialRow>
+		<m:MaterialRow>
+			<it:NewGameButton text="Nouvelle" ui:field="nouvelle"/>
+		</m:MaterialRow>
+	</m:MaterialColumn>
+	<m:MaterialColumn grid="s3">
 		<it:Grille ui:field="grille"/>
 	</m:MaterialColumn>
-	<m:MaterialColumn grid="s2">
+	<m:MaterialColumn grid="s1">
 		<m:MaterialRow>
 			<it:Controls text="Up" ui:field="up"/>
 		</m:MaterialRow>
