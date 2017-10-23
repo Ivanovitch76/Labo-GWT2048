@@ -8,17 +8,22 @@ import be.steformations.it.client.event.direction.DirectionEvent;
 import be.steformations.it.client.event.direction.DirectionEventManager;
 import be.steformations.it.client.event.reset.ResetEvent;
 import be.steformations.it.client.event.reset.ResetEventManager;
+import be.steformations.it.client.event.save.SaveEvent;
+import be.steformations.it.client.event.save.SaveEventManager;
+import be.steformations.it.client.http.Saver;
 import be.steformations.it.client.modele.CommonParts;
 import be.steformations.it.client.modele.Down;
 import be.steformations.it.client.modele.Left;
 import be.steformations.it.client.modele.Right;
 import be.steformations.it.client.modele.Up;
+import be.steformations.it.client.modele.Up2;
 import gwt.material.design.client.ui.MaterialColumn;
 import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.MaterialRow;
 
-public class Grille extends MaterialPanel implements DirectionEventManager, ResetEventManager{
+public class Grille extends MaterialPanel implements DirectionEventManager, ResetEventManager, SaveEventManager{
 	private Case[][] table = new Case[4][4];
+	private String fusion = new String();
 
 	public Grille() {
 		super();
@@ -53,8 +58,14 @@ public class Grille extends MaterialPanel implements DirectionEventManager, Rese
 			add(ligne);
 		}
 
+//		String fusion = new String();
+		fusion=arrayToString(table);
+		GWT.log("Grille fusion: " + fusion);
+
+
 		EventManager.getInstance().addHandler(DirectionEvent.type, this);
 		EventManager.getInstance().addHandler(ResetEvent.type, this);
+		EventManager.getInstance().addHandler(SaveEvent.type, this);
 		
 	}
 
@@ -71,18 +82,26 @@ public class Grille extends MaterialPanel implements DirectionEventManager, Rese
 		case "up":
 			table=up.goUp(table);
 			table=common.addNewRandom(table);
+			fusion=arrayToString(table);
+			GWT.log("Grille fusion: " + fusion);
 			break;
 		case "down":
 			table=down.goDown(table);
 			table=common.addNewRandom(table);
+			fusion=arrayToString(table);
+			GWT.log("Grille fusion: " + fusion);
 			break;
 		case "right":
 			table=right.goRight(table);
 			table=common.addNewRandom(table);
+			fusion=arrayToString(table);
+			GWT.log("Grille fusion: " + fusion);
 			break;
 		default:
 			table=left.goLeft(table);
 			table=common.addNewRandom(table);
+			fusion=arrayToString(table);
+			GWT.log("Grille fusion: " + fusion);
 			break;
 		}
 	}
@@ -111,6 +130,44 @@ public class Grille extends MaterialPanel implements DirectionEventManager, Rese
 				}
 			}
 		}
+		
+	}
+	
+	public String arrayToString(Case[][] a) {
+		String fusion = new String();
+	    if (a == null)
+	        return "null";
+
+	    int iMax = a.length - 1;
+	    int jMax = a.length - 1;
+	    if (iMax == -1)
+	        return "[]";
+
+	    StringBuilder b = new StringBuilder();
+	    b.append('[');
+	    for (int i = 0; i < a.length; i++) {
+	    	for (int j = 0; j < a.length; j++) {
+		        b.append(a[i][j].getText());
+		        GWT.log(a[i][j].getText());
+		        if (i==iMax && j == jMax){
+		        	b.append(']');
+		        } else {
+		        	b.append(", ");	
+		        }	
+	    	}    
+	    }
+	    fusion = b.toString();
+	    return fusion;
+	}
+
+	@Override
+	public void onSave(SaveEvent event) {
+		GWT.log("Grille.onSave()");
+		Saver saver = new Saver();
+		String id = event.getId();
+
+		GWT.log("Grille.onSave() => id: " + id + " ;fusion: " + fusion);
+		saver.onTransfert(id, fusion);
 		
 	}
 

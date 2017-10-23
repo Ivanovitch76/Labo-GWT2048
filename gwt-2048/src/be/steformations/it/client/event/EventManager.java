@@ -23,10 +23,12 @@ public class EventManager {
 	}
 
 	public <H extends EventHandler> HandlerRegistration addHandler(Type<H> type, H handler) {
+		GWT.log("EventManager.addHandler()");
 		return handlerManger.addHandler(type, handler);
 	}
 
 	public void fireEvent(GwtEvent<?> event) {
+		GWT.log("EventManager.fireEvent()");
 		handlerManger.fireEvent(event);
 	}
 	
