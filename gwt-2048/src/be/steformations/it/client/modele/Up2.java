@@ -3,6 +3,7 @@ package be.steformations.it.client.modele;
 import be.steformations.it.client.ui.widget.Case;
 
 public class Up2 {
+
 	private Case[][] tableau;
 	private CommonParts common = new CommonParts();
 	
