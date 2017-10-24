@@ -6,13 +6,19 @@ import com.google.gwt.user.client.Random;
 import be.steformations.it.client.event.EventManager;
 import be.steformations.it.client.event.direction.DirectionEvent;
 import be.steformations.it.client.event.direction.DirectionEventManager;
+import be.steformations.it.client.event.load.LoadEvent;
+import be.steformations.it.client.event.load.LoadEventManager;
 import be.steformations.it.client.event.reset.ResetEvent;
 import be.steformations.it.client.event.reset.ResetEventManager;
+import be.steformations.it.client.event.result.ResultEvent;
+import be.steformations.it.client.event.result.ResultEventManager;
 import be.steformations.it.client.event.save.SaveEvent;
 import be.steformations.it.client.event.save.SaveEventManager;
+import be.steformations.it.client.http.Loader;
 import be.steformations.it.client.http.Saver;
 import be.steformations.it.client.modele.CommonParts;
 import be.steformations.it.client.modele.Down;
+import be.steformations.it.client.modele.Down2;
 import be.steformations.it.client.modele.Left;
 import be.steformations.it.client.modele.Right;
 import be.steformations.it.client.modele.Up;
@@ -21,7 +27,7 @@ import gwt.material.design.client.ui.MaterialColumn;
 import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.MaterialRow;
 
-public class Grille extends MaterialPanel implements DirectionEventManager, ResetEventManager, SaveEventManager{
+public class Grille extends MaterialPanel implements DirectionEventManager, ResetEventManager, SaveEventManager, LoadEventManager, ResultEventManager{
 	private Case[][] table = new Case[4][4];
 	private String fusion = new String();
 
@@ -66,6 +72,8 @@ public class Grille extends MaterialPanel implements DirectionEventManager, Rese
 		EventManager.getInstance().addHandler(DirectionEvent.type, this);
 		EventManager.getInstance().addHandler(ResetEvent.type, this);
 		EventManager.getInstance().addHandler(SaveEvent.type, this);
+		EventManager.getInstance().addHandler(LoadEvent.type, this);
+		EventManager.getInstance().addHandler(ResultEvent.type, this);
 		
 	}
 
@@ -74,8 +82,8 @@ public class Grille extends MaterialPanel implements DirectionEventManager, Rese
 		GWT.log("Grille.onDirection()");
 		Right right = new Right();
 		Left left = new Left();
-		Up up = new Up();
-		Down down = new Down();
+		Up2 up = new Up2();
+		Down2 down = new Down2();
 		CommonParts common = new CommonParts();
 		String direction = event.getDirection();
 		switch (direction) {
@@ -141,18 +149,19 @@ public class Grille extends MaterialPanel implements DirectionEventManager, Rese
 	    int iMax = a.length - 1;
 	    int jMax = a.length - 1;
 	    if (iMax == -1)
-	        return "[]";
+	        return "";
 
 	    StringBuilder b = new StringBuilder();
-	    b.append('[');
+//	    b.append('[');
 	    for (int i = 0; i < a.length; i++) {
 	    	for (int j = 0; j < a.length; j++) {
 		        b.append(a[i][j].getText());
+//		        b.append(",");
 		        GWT.log(a[i][j].getText());
 		        if (i==iMax && j == jMax){
-		        	b.append(']');
+		        	b.append(",x");
 		        } else {
-		        	b.append(", ");	
+		        	b.append(",");	
 		        }	
 	    	}    
 	    }
@@ -170,5 +179,39 @@ public class Grille extends MaterialPanel implements DirectionEventManager, Rese
 		saver.onTransfert(id, fusion);
 		
 	}
+	
+	@Override
+	public void onLoad(LoadEvent event) {
+		GWT.log("Grille.onLoad()");
+		Loader loader = new Loader();
+		String id = event.getId();
+
+		GWT.log("Grille.onLoad() => id: " + id);
+		loader.onTransfert(id);
+		
+	}
+
+	@Override
+	public void onResult(ResultEvent event) {
+		GWT.log("Grille.onResult()");
+		table = stringToArray(event.getGrid(), table);
+	}
+
+	private Case[][] stringToArray(String grid, Case[][] tab) {
+		GWT.log("Grille.stringToArray() => grid=" + grid);
+		Case[][] tableau = tab;
+		String[] cell = grid.split(",");
+		GWT.log("Grille.stringToArray() cell: " + cell);
+		int k = 0;
+		for (int i = 0; i < tableau.length; i++) {
+			for (int j = 0; j < tableau.length; j++) {
+				tableau[i][j].setText(cell[k]);	
+				k++;
+//				GWT.log("tableau(" + i + "," + j + "):" + tableau[i][j].getText());
+			}
+		}
+		return tableau;
+	}
+
 
 }

@@ -1,5 +1,7 @@
 package be.steformations.it.client.modele;
 
+import com.google.gwt.core.shared.GWT;
+
 import be.steformations.it.client.ui.widget.Case;
 
 public class Up2 {
@@ -10,12 +12,13 @@ public class Up2 {
 	public Case[][] goUp(Case[][] table){
 		
 		tableau=table;
+		GWT.log("Up2.goUp()");
 		//phase 1 : déplacement des cases remplies dans la table		
 		tableau=moveUpIntoTable(tableau);
 		
 		//phase 2 : addition des valeurs similaires contigües 
 		for (int i = 0; i < tableau.length; i++) {
-			for (int j = 0; j < tableau.length; j++) {
+			for (int j = 0; j < tableau.length-1; j++) {
 				Case cellule = tableau[j][i];
 				if (cellule.getText().equals(tableau[j+1][i].getText()) && !cellule.getText().equals("")) {
 					cellule.setText(common.valueAddition(tableau[j][i]).getText());

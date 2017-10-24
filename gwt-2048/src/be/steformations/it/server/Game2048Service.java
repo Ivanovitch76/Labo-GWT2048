@@ -26,6 +26,19 @@ public class Game2048Service extends HttpServlet{
 		manager.addGame(game.getId(), game.getGrid());
 		
 	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("Game2048Service.doGet()");
+		String id = req.getParameter("id");	
+		Game game = manager.getGameById(id);
+		
+		resp.setContentType("text/plain");
+		System.out.println("Game2048 => grid: " + game.getGrid());
+		resp.getWriter().write(game.getGrid());
+	}
+	
+	
 	
 	
 	

@@ -12,6 +12,7 @@ public class Right {
 	public Case[][] goRight(Case[][] table){
 		
 		tableau=table;
+		GWT.log("Right.goRight()");
 		//phase 1 : déplacement des cases remplies dans la table		
 		tableau=moveRightIntoTable(tableau);
 		

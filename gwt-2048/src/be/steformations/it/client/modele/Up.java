@@ -13,7 +13,8 @@ public class Up {
 		Right right = new Right();
 		Case[][] reverseTable = partie.createWorkTable();
 		tableau=table;
-
+		GWT.log("Up.goUp()");
+		
 		int l;
 		int m = tableau.length-1; 
 			
@@ -25,11 +26,10 @@ public class Up {
 			}	
 			m--;
 		}
-		
+
 		reverseTable=right.goRight(reverseTable);
 
-		l = 0;
-		
+		l = 0;	
 		for (int i = 0; i < tableau.length; i++) {
 			m = tableau.length-1;
 			for (int j = 0; j < tableau.length; j++) {
@@ -38,7 +38,6 @@ public class Up {
 			}		
 			l++;
 		}				
-		
 		return tableau;	
 	}	
 }

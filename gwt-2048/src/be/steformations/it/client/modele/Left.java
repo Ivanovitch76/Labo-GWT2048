@@ -12,7 +12,8 @@ public class Left {
 	public Case[][] goLeft(Case[][] table){
 
 		tableau = table; 
-
+		GWT.log("Left.goLeft()");
+		
 		//phase 1 : déplacement des cases remplies dans la table	
 		tableau=moveLeftIntoTable(tableau);
 		

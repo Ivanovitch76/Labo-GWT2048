@@ -7,6 +7,9 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
 
+import be.steformations.it.client.event.EventManager;
+import be.steformations.it.client.event.result.ResultEvent;
+
 public class Loader implements RequestCallback {
 
 	private RequestBuilder requestBuilder;
@@ -24,7 +27,11 @@ public class Loader implements RequestCallback {
 	
 	@Override
 	public void onResponseReceived(Request request, Response response) {
-		// TODO Auto-generated method stub
+		GWT.log("Loader.onResponseReceived()");
+		String grid = response.getText();
+		
+		ResultEvent event = new ResultEvent(grid);
+		EventManager.getInstance().fireEvent(event);
 		
 	}
 
@@ -37,12 +44,11 @@ public class Loader implements RequestCallback {
 
 	public void onTransfert(String id){
 		GWT.log("Loader.onTransfert()");
-		Game game = new Game();
-		game.setId(id);
-		String json = this.mapper.write(game);
-		this.requestBuilder.setRequestData(json);
+		String url = Window.Location.getPath().replaceAll("/index.html", "");
+		url += "/json/service?id=" + id;
+		this.requestBuilder = new RequestBuilder(RequestBuilder.GET, url);
+		this.requestBuilder.setCallback(this);
 		try{
-			GWT.log("Loader.requestBuilder.send() => id: " + game.getId());
 			this.requestBuilder.send();
 		} catch(Exception e){
 			GWT.log("Loader.alert()");

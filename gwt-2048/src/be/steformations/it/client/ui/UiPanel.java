@@ -51,11 +51,13 @@ public class UiPanel extends Composite implements ClickHandler{
 
 	@Override
 	public void onClick(ClickEvent event) {
-		GWT.log("SaveButton.onClick() => id: " + id);
+		GWT.log("UiPanel.onClick() => id: " + id);
 		if (event.getSource().equals(save)){
+			GWT.log("UiPanel.onClick() => save");
 			SaveEvent save = new SaveEvent(id.getText());
 			EventManager.getInstance().fireEvent(save);	
 		} else {	
+			GWT.log("UiPanel.onClick() => load");			
 			LoadEvent load = new LoadEvent(id.getText());
 			EventManager.getInstance().fireEvent(load);
 		}	

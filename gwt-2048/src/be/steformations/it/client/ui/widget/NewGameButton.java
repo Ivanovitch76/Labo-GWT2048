@@ -1,5 +1,6 @@
 package be.steformations.it.client.ui.widget;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiConstructor;
@@ -18,6 +19,7 @@ public class NewGameButton extends MaterialButton implements ClickHandler{
 
 	@Override
 	public void onClick(ClickEvent event) {
+		GWT.log("NewGameButton.onClick()");
 		ResetEvent reset = new ResetEvent();
 		EventManager.getInstance().fireEvent(reset);
 		

@@ -14,7 +14,7 @@ public class Down {
 		CommonParts partie = new CommonParts();
 		Right right = new Right();
 		Case[][] reverseTable = partie.createWorkTable();
-
+		GWT.log("Down.goDown()");
 		
 		for (int i = 0; i < tableau.length; i++) {
 			for (int j = 0; j < tableau.length; j++) {
