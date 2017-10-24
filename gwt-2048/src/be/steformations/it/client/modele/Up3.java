@@ -16,11 +16,11 @@ public class Up3 {
 		GWT.log("Up3.goUp()");
 
 		for (int i = 0; i < tableau.length; i++) {
-			ligne = tableau[0][i].getText().equals("") ? -1 : 0;
-			for (int j = 1; j < tableau.length; j++) {
-				String val = tableau[j][i].getText();
-				tableau[j][i].setText("");
-				if (!val.equals("")) {
+				ligne = tableau[0][i].getText().equals("") ? -1 : 0;
+				for (int j = 1; j < tableau.length; j++) {
+				if (!tableau[j][i].getText().equals("")) {
+					String val = tableau[j][i].getText();
+					tableau[j][i].setText("");
 					if (ligne >= 0 && val.equals(tableau[ligne][i].getText())) {
 						tableau[ligne][i].setText(common.valueAddition(val));
 						ligne++;
@@ -29,8 +29,9 @@ public class Up3 {
 						tableau[ligne][i].setText(val);
 					}
 				}
-
+				
 			}
+			
 
 		}
 
