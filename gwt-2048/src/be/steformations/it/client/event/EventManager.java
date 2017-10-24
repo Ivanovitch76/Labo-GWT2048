@@ -18,17 +18,17 @@ public class EventManager {
 	
 	public EventManager() {
 		super();
-		GWT.log("EventManager.EventManager()");
+//		GWT.log("EventManager.EventManager()");
 		this.handlerManger = new HandlerManager(this);
 	}
 
 	public <H extends EventHandler> HandlerRegistration addHandler(Type<H> type, H handler) {
-		GWT.log("EventManager.addHandler()");
+//		GWT.log("EventManager.addHandler()");
 		return handlerManger.addHandler(type, handler);
 	}
 
 	public void fireEvent(GwtEvent<?> event) {
-		GWT.log("EventManager.fireEvent()");
+//		GWT.log("EventManager.fireEvent()");
 		handlerManger.fireEvent(event);
 	}
 	

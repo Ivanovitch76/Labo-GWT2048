@@ -20,12 +20,10 @@ public class CommonParts {
 				}
 			}
 		}
-		GWT.log("count: " + count);
 		if (count < 16){
 			while (!alim){
 				int r = Random.nextInt(4); 
 				int s = Random.nextInt(4); 
-				GWT.log("addNewRandom() r=" + r + " ,s=" + s);
 				if (table[r][s].getText().equals("")){
 					int rng = Random.nextInt(4);
 					if (rng==1){
@@ -41,8 +39,50 @@ public class CommonParts {
 		
 	}
 	
+	public String valueAddition(String val) {
+		String add;
+		switch (val) {
+		case "4":
+			add ="8";
+			break;
+		case "8":
+			add ="16";
+			break;
+		case "16":
+			add ="32";
+			break;
+		case "32":
+			add ="64";
+			break;
+		case "64":
+			add ="128";
+			break;
+		case "128":
+			add ="256";
+			break;
+		case "256":
+			add ="512";
+			break;
+		case "512":
+			add ="1024";
+			break;
+		case "1024":
+			add ="2048";
+			break;
+		case "2048":
+			add ="4096";
+			break;
+		default:
+			add ="4";
+			break;
+		}
+		return add;
+	}
+	
 	public Case valueAddition(Case cellule) {
-		GWT.log("Grille.valueAddition()");
+//		GWT.log("Grille.valueAddition()");
+		// cellule.setText(valueAddition(cellule.getText());
+		// return cellule;
 		Case cell = cellule;
 		switch (cell.getText()) {
 		case "4":

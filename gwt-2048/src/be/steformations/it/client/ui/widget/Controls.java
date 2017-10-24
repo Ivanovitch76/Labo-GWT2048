@@ -25,7 +25,7 @@ public class Controls extends MaterialButton implements ClickHandler{
 	
 	@Override
 	public void onClick(ClickEvent event) {
-		GWT.log("Controls.onClick()");
+//		GWT.log("Controls.onClick()");
 		DirectionEvent directionEvent = new DirectionEvent();
 		directionEvent.setDirection(direction);
 		EventManager.getInstance().fireEvent(directionEvent);
